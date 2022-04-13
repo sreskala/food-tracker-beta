@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
+import { setAlert } from "../../slices/alert/alertSlice";
 //import axios from 'axios';
 
 const Register = () => {
@@ -9,6 +11,9 @@ const Register = () => {
     password2: "",
   });
 
+  const alertMsg = useSelector((state) => state.alert.msg)
+  const dispatch = useDispatch()
+
   const { name, email, password, password2 } = formData;
 
   const handleChange = (e) =>
@@ -18,6 +23,7 @@ const Register = () => {
     e.preventDefault();
     if (password !== password2) {
         console.log('Passwords dont match');
+        dispatch(setAlert({ msg: 'Passwords do not match', alertType: 'danger' }))
     } else {
         // const newUser = {
         //     name,
@@ -46,6 +52,12 @@ const Register = () => {
 
   return (
     <>
+    { alertMsg !== "" ? (
+      <>
+    <h1>Alert!</h1>
+    <h2>{alertMsg}</h2>
+    </>
+    ) : null}
       <div>Register</div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
