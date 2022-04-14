@@ -14,9 +14,14 @@ export const alertSlice = createSlice({
       state.alertType = action.payload.alertType;
       state.id = uuidv4();
     },
+    removeAlert: (state) => {
+      state.msg = "";
+      state.alertType = "";
+      state.id = null
+    }
   },
 });
 
-export const { setAlert } = alertSlice.actions;
+export const { setAlert, removeAlert } = alertSlice.actions;
 
 export default alertSlice.reducer;
