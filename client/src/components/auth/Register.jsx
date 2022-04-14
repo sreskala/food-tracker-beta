@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { setAlert } from "../../slices/alert/alertSlice";
+import { setAlert, removeAlert } from "../../slices/alert/alertSlice";
+import Alert from "../Layout/Alert";
 //import axios from 'axios';
 
 const Register = () => {
@@ -12,12 +13,17 @@ const Register = () => {
   });
 
   const alertMsg = useSelector((state) => state.alert.msg)
+  const alertType = useSelector((state) => state.alert.alertType)
   const dispatch = useDispatch()
 
   const { name, email, password, password2 } = formData;
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleRemoveAlert = () => {
+    dispatch(removeAlert());
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,8 +60,7 @@ const Register = () => {
     <>
     { alertMsg !== "" ? (
       <>
-    <h1>Alert!</h1>
-    <h2>{alertMsg}</h2>
+    <Alert alertMsg={alertMsg} alertType={alertType} removeAlert={handleRemoveAlert}/>
     </>
     ) : null}
       <div>Register</div>
