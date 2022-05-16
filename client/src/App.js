@@ -9,6 +9,9 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import setAuthToken from "./utils/setAuthToken";
 import { useEffect } from "react";
+import Dashboard from "./components/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
+import StoragePlaceDetail from "./components/storagePlaces/StoragePlaceDetail";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -39,6 +42,13 @@ const App = () => {
           <Route path="/" element={<Layout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>} />
+          <Route path="/storageplaces/:id" element={<PrivateRoute>
+            <StoragePlaceDetail />
+          </PrivateRoute>} />
+          {/* <PrivateRoute path="/dashboard" element={<Dashboard />} /> */}
         </Routes>
       </div>
     </Router>
